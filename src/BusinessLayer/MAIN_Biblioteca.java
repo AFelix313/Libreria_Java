@@ -1,5 +1,4 @@
 package BusinessLayer;
-import BusinessLayer.Methods_Library;
 import DataLayer.XML_Library;
 import Entity.*;
 import java.io.IOException;
@@ -12,28 +11,64 @@ import org.xml.sax.SAXException;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MAIN_Biblioteca {
 
-	
+		
 		public static void main(String[] args) throws Exception  {
+					
+		
+			
+			System.out.println(" --- BENVENUTO IN BIBLIOTECA! ---");
+			
+			Scanner scanner = new Scanner(System.in);
+			
+			Menu_Library menu = new Menu_Library();
 			
 			
-			Methods_Library l = new Methods_Library();
+			int starter = menu.menuStarter();
 			
 			
+			//menu.insertNewLibro();
+			
+			
+			// Prove sul Menù : 
+			
+			switch(starter) {
+			
+			case 1: 
+				menu.firstLogin();
+				break;
+			case 2:
+				menu.login();
+				break;
+			case 3: 
+				menu.exit();
+				return;     // Interrompo il programma ed esco!
+			default: 
+				System.out.println("------------------\n");
+				System.out.println("Scelta non ammissibile!"); 
+				System.out.println("------------------\n");
+				menu.menuStarter();
+			}
+			
+			
+			
+	
+			/*
 			
 			User user1 = new User("Andrea", 13,"Administrator",313 ); // Username, UserId, Role, Password
 			//Book book1 = new Book(13, "Divina Commedia","Dante", "Einaudi", 2); // Bookld, Title, PublishingHouse,Quantity
 			
 			//Reservation reservation = new Reservation(13, 23, 332, 13/12/2001,13/12/2001);
-			/*
+			
 			String[] v = {};
 			v[0] = user1.getUsername();
 			v[1] = String.valueOf(user1.getUserld());
 			v[2] = user1.getRole();
 			v[3] = String.valueOf(user1.getPassword());
-			*/
+			
 			
 			XML_Library a = new XML_Library(); // Inizializzo la Library
 			
@@ -75,31 +110,11 @@ public class MAIN_Biblioteca {
 			
 			
 			
-			/* Prove sul Menù : 
 			
-			switch(starterChoice) {
-			
-			case 1: 
-				l.firstLogin();
-				break;
-			case 2:
-				l.login();
-				break;
-			case 3: 
-				l.exit();
-				return;     // Interrompo il programma ed esco!
-			default: 
-				System.out.println("------------------\n");
-				System.out.println("Scelta non ammissibile!"); 
-				System.out.println("------------------\n");
-				l.menuStarter();
-			}
-			
-			// l.menuStarter();	
-			// l.insertBook();
-		    
-		    */
-		
+		   
+	
 		}
-
+			 */			
+		
+		}			
 }

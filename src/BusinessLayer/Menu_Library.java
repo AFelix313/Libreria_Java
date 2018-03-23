@@ -11,103 +11,83 @@ public class Menu_Library {
 	
 	// Restituisce in uscita l'oggetto User e per questo motivo mettò return
 	// l'oggetto user appena creato:
+	// Inizializzo lo scanner e la biblioteca:
+	Library lib = new Library();
+	Scanner input = new Scanner (System.in);
+	Library lazzerini=new Library();
 	
-	public User writeUsers() {
-		
-	
-	User user = new User();
-	Scanner scanner = new Scanner(System.in);
-		
-	System.out.print("Inserisci ID: ");
-	int id = scanner.nextInt();		
-	user.setUserld(id);
-	
-	
-	System.out.print("Inserisci Role: ");
-	String name = scanner.next();
-	user.setUsername(name);
-	
-	System.out.print("Inserisci Username: ");
-	String eta = scanner.next();
-	user.setUsername(eta);
-	
-	System.out.print("Inserisci Password: ");
-	int password = scanner.nextInt();
-	user.setPassword(password);
-	
-	
-	return user;
-	
-	}
-	
-	public void writeBooks() {
-		
-		
-		Book book = new Book();
-		Scanner scanner1 = new Scanner(System.in);
-			
-		
-		System.out.print("BookId: ");
-		int bookId = scanner1.nextInt();		
-		book.setBookld(bookId);
-		
-		
-		System.out.print("Inserisci autore: ");
-		String titolo = scanner1.next();
-		book.setTitle(titolo);
-		
-		System.out.print("Inserisci editore: ");
-		String editore = scanner1.next();
-		book.setPublishingHouse(editore);
-		
-		
-		}
-		
-	
-	public void Login() {
-		
-		Scanner scanner1 = new Scanner(System.in);
-		
-		String userld;
-		String Password;
-		String Username;
-		
-		System.out.println("LOGIN");
-		System.out.println("Username:");
-		
-		Username = scanner1.next();
-		
-		System.out.println("Password:");
-		
-		Password = scanner1.next();
-		
-		if(Username.equals(Username) && Password.equals(Password)) 
-		System.out.println("You are Login!");
-	
-		else if (Password.equals(Password)) {
-			System.out.println("Invalid Password");
-		} else {
-			System.out.println("User name and Password");
-		}
-		
-		
-		
-	}
+	// 
 	
 	
 	/*
-	String path_xml = System.getProperty("user.dir");
-	String name_file_xml = "Library.xml";
-	String file_xml = path_xml + File.separator + name_file_xml;
-	Scanner scanner;
-	Library my_libr;
-	private User logged_user;
-	*/
+	 *  STRUTTURA APPLICATIVO BIBBLIOTECA:
+	 * Nel MAIN_Biblioteca richiamo per mezzo dello Switch i diversi metodi di questo menù e provvedo una volta fatto l'inserimento a 
+	 *  memorizzare i dati inseriti dall'utente all'interno dell'oggetto creato, o meglio in ingresso ai metodi della Library che implementa
+	 *  quelli della interfaccia Layer_Access_Dati che a sua volta richiamano quelli della classe GestioneDB per accesso al DB (JDRC)
+	 *
+	 */
 	
-	// Inizializzo lo scanner e la biblioteca:
-	Scanner input = new Scanner (System.in);
-	Library lazzerini=new Library();
 
+	// METODO OK: 
+	public void insertNewLibro() {
+		
+		System.out.println("Creo un nuovo libro:");
+		
+		String [] param = {"TITLE_B", "AUTHOR_B", "PUBLISHINGHOUSE_B"};
+		String [] value = new String[3];
+		
+		System.out.println("Inserisci il Titolo:");
+		//String title = input.next();
+		//value[0] = title;  // Assegno il valore al primo elemento della lista
+		value[0] = input.nextLine().replace("\n", "");   // Comandi tutti in una medesima riga!
+		
+		//System.out.println(value[0]);
+		
+		while (value[0] == null || value[0].isEmpty())
+		{
+			System.out.println("Campo non può essere vuoto:");
+			System.out.println("Inserisci il Titolo:");
+			value[0] = input.nextLine().replace("\n", "");
+		}
+	
+		
+		System.out.println("Inserisci l'Autore:");
+		value[1] = input.nextLine().replace("\n", "");
+		while (value[1] == null || value[1].isEmpty())
+		{
+			System.out.println("Campo non può essere vuoto:");
+			System.out.println("Inserisci l'Autore:");
+			value[1] = input.nextLine().replace("\n", "");
+		}
+		
+		System.out.println("Inserisci la Casa Editrice:");
+		value[2] = input.nextLine().replace("\n", "");
+		while (value[2] == null || value[2].isEmpty())
+		{
+			System.out.println("Campo non può essere vuoto:");
+			System.out.println("Inserisci la Casa Editrice:");
+			value[2] = input.nextLine().replace("\n", "");
+		}
+		
+		// System.out.println(value[0]);
+		// System.out.println(value[1]);
+		
+		System.out.println("Il Book " +value[0]+" scritto da "+ value[1]+ " è stato creato!");
+		
+		 lib.insertBook (param, value);
+		
+		// é un metodo che da si o no: 
+		/*
+		if (createBook) {System.out.println("Libro" +value[0]+ value[1]+ "creato!");}
+		else {System.out.println("Libro NON creato!");}
+		*/
+		
+	}
+	
+	
+	
+
+	
 	
 	public int menuStarter() {
 		
@@ -129,25 +109,46 @@ public class Menu_Library {
 		
 		int userChoice;
 		
-		System.out.println("Hello User" + "Andrea");
+		System.out.println("--- MENU USER: ---");
 		System.out.println("Create booking: select 1");
 		System.out.println("Delete booking: select 2");
 		System.out.println("Exit: select 3");
-		System.out.print("Choose what do you want to do:");
+		System.out.print("Cosa desideri fare:");
+		System.out.print("\n");
 		
 		userChoice = input.nextInt();
 	
+		
+		switch(userChoice) {
+		
+		case 1: 
+			insertNewLibro();
+			break;
+		case 2: 
+			deleteBook();
+			break;     // Interrompo il programma ed esco!
+		case 3:
+			exit();
+			return userChoice;
+		default: 
+			System.out.println("------------------\n");
+			System.out.println("Scelta non ammissibile!"); 
+			System.out.println("------------------\n");
+			menuStarter();
+		}
+		
 		return userChoice;
 	}
 	
 		
-	
-public int adminUser() {
+// Importanteeeeee:::	
+public int menuAdmin() {
 		
 		int adminChoice;
 		
+		System.out.println("--- MENU ADMIN: ---");
 		System.out.println("Insert new book: select 1");
-		System.out.println("Edit book: select 2");
+		System.out.println("Edit book: select 2"); 
 		System.out.println("Delete book: select 3");
 		System.out.println("Exit: select 4");
 		System.out.print("Choose what do you want to do:");
@@ -155,11 +156,52 @@ public int adminUser() {
 		
 		adminChoice = input.nextInt();
 	
+		switch(adminChoice) {
+		
+		case 1: 
+			insertNewLibro();
+			break;
+		case 2:
+			editBook();
+			break;
+		case 3: 
+			deleteBook();
+			break;     // Interrompo il programma ed esco!
+		case 4:
+			exit();
+			return adminChoice;
+		default: 
+			System.out.println("------------------\n");
+			System.out.println("Scelta non ammissibile!"); 
+			System.out.println("------------------\n");
+			menuStarter();
+		}
+		
+	
 		return adminChoice;
 	}
 	
 
 	
+	public void deleteBook() {
+
+
+		// Elimina un Libro!
+	
+}
+
+
+
+
+	public void editBook() {
+
+		// Modifica un libro esistente!
+	
+}
+
+
+
+
 	public void insertBook() {
 		
 		
@@ -194,40 +236,117 @@ public int adminUser() {
 
 
 	public void login() {
+		
+		System.out.println("--- INSERISCI DATI LOGIN ---");
 		System.out.print("Username: ");
 		String username = input.next().replace("\n", "");
 		System.out.print("Password: ");
 		String pass = input.next().replace("\n", "");
 		
-		// Faccio inserire nome e password, se vi sono presenti accedo altrimenti
-		// da errore! 
+		 
 		
-		User user1 = new User();
+		User login = lib.LoginUtente(username, pass );
 		
 		
-		//User logged_in = my_libr.login(username, pass);
-		//if ( logged_in!= null || logged_in instanceof User ) {
-		//	System.out.println("Logged in! Welcome "+ logged_in.getUsername() + "!");
-		//}else {
-		//	System.out.println("Login failed! User of password incorrect.");
-		//
+		
+		
+		
+		
+		if ( login != null ) {
+			System.out.println("Logged in! Benvenuto " + login.getUsername() + ".");
+			
+			String loginRole = login.getRole();
+			
+			//System.out.println(loginRole);
+			
+			switch (loginRole) {
+			
+			case "Admin":
+				menuAdmin();
+				break;
+			case "User":
+				menuUser();
+			default:
+				throw new IllegalArgumentException("Ruolo Invalido!");
+			}
+			
+		} else {
+			System.out.println("Login fallito! ");
+			menuStarter();
 		}
+			 
+		
+	}
+	
 
-
-	public void firstLogin() {
+	// Devo controllare che non abbia già un utente con le medesime credenziali registrato nella lista degli utenti!
+	public User firstLogin() {
 		
 		// Primo login con la creazione del nuovo utente!
 		
+		
 		System.out.print("Username: ");
 		String username = input.next().replace("\n", "");
 		System.out.print("Password: ");
 		String pass = input.next().replace("\n", "");
-		System.out.print("userId: ");
-		System.out.print("role: ");
-	
+
+		System.out.print("Role: ");
+		String role = input.next().replace("\n", "");
+		User user1 = new User(username, pass, role);
+		System.out.println(role);
 		
+		
+		if (user1.getRole().equals( "Admin"))      // Per confrontare due stringhe devo usare il metodo equals e non ==
+		{ 
+		
+		// System.out.println("Nuovo Admin " + user1.getUsername() + " Memorizzato!");
+		
+		boolean controllo_admin =lib.insertNewUser (username, pass, role);
+		
+		if (controllo_admin == false ) 
+		{
+			System.out.println("USER "+  user1.getUsername() +" già presente!!!");
+			System.out.println("---");
+			firstLogin(); 
+		}
+		
+		System.out.println("Nuovo Admin " + user1.getUsername() + " Memorizzato!");
+		System.out.println("---");
+		
+		menuAdmin();
+		
+		} 
+		else 
+		{
+		
+		
+		boolean controllo_utente =lib.insertNewUser (username, pass, role);
+		
+		if (controllo_utente == false ) 
+		{
+			System.out.println("USER "+  user1.getUsername() +" già presente!!!");
+			System.out.println("---");
+			firstLogin(); 
+		}
+		
+		System.out.println("Nuovo Utente " + user1.getUsername() + " Memorizzato!");
+		System.out.println("---");
+		
+		
+		
+		lib.insertNewUser(username, pass, role);
+		menuUser();
+		}
+		
+		return user1;
 	}
 
+	
+	public void secondLogin(User u){
+		
+		
+	}
+	
 
 	public void exit() {
 		

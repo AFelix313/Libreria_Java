@@ -1,11 +1,13 @@
 package Entity;
 // Rappresenta l'intera Biblioteca ed è caratterizzato da :
 
-import java.io.*; 
+
 import java.util.ArrayList;
 
+import DBConnect.GestioneDb;
 import DataLayer.Layer_Access_Dati;
 import Entity.Book; // Per importare il package 
+
 
 
 public class Library {
@@ -14,13 +16,20 @@ public class Library {
 	 private ArrayList <User> users;
 	 private ArrayList <Reservation> prenotazioni;
 	
-	 private Layer_Access_Dati layer_access_dati;
+	 
+	 
+	 public Layer_Access_Dati dati; // Non può essere istanziata perchè è un interfaccia!
+	 
+	 
+	 
 	 
 	 public Library()
 	   {
 	      this.books = new ArrayList<Book>();
 	      this.users = new ArrayList<User>();
 	      this.prenotazioni = new ArrayList<Reservation>();
+	      this.dati= new GestioneDb();     // Nel costruttore specifico il tipo di Gestione di Dati e lo istanzio!
+	      
 	   }
 	
 	 
@@ -61,7 +70,7 @@ public class Library {
 	}
 	 
 	// Metodo che permette di ottenere la lista dei titoli dei Libri:
-	public String toString() {
+	public String toTitolo() {
 		
 		String booksTitle = "";
 		
@@ -73,7 +82,34 @@ public class Library {
 	}
 	
 	
-	private ArrayList <Book> getBook() {
+	public ArrayList <Book> getBook() {
 		return books;
 	}
+
+
+	public void insertUser(String[] param, String[] value) {
+		
+		dati.insertBook(param, value);
+	}
+
+	public boolean insertNewUser (String username, String pass, String role) {
+		
+		return dati.insertNewUser(username,  pass, role);
+		
+	}
+	
+
+	public void insertBook(String[] param, String[] value) {
+		
+		dati.insertBook(param, value);
+	}
+
+
+    public User LoginUtente (String username, String password ) {
+    	
+    	
+    	return dati.LoginUtente(username, password);
+    
+    }
+
 }

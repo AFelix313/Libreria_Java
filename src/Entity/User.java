@@ -4,25 +4,34 @@ public class User {
 	private int Userld;
 	private String Role;
 	private String Username;
-	private int Password;
+	private String Password;
 	
 	// Username, UserId, Role, Password
-	public User(String username,int userld,String role, int password ) {
+	public User(String username, String password, String role  ) {
 		
 		
-		this.setUserld(userld);
-		this.setRole(role);
+		//this.setUserld(userld);
+		
 		this.setUsername(username);
 		this.setPassword(password);
-		
+		this.setRole(role);
 	}
 
-	
-	
-	public User() {
+		public User() {
 		
 	}
 	
+		
+	public User( int Userld, String username, String password, String role  ) {
+			
+			
+			this.setUserld(Userld);
+			
+			this.setUsername(username);
+			this.setPassword(password);
+			this.setRole(role);
+	}
+
 	
 	
 	public int getUserld() {
@@ -53,12 +62,12 @@ public class User {
 	}
 
 
-	public int getPassword() {
+	public String getPassword() {
 		return Password;
 	}
 
 
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.Password = password;
 	}
 	

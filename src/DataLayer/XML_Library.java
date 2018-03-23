@@ -21,7 +21,7 @@ import org.w3c.dom.*;
 import Entity.*;
 
 
-public class XML_Library implements Layer_Access_Dati {
+public class XML_Library  {
 	
 	
 	static String pathFile = "C:\\Users\\andrea.felici\\Desktop\\Libreria.xml";
@@ -665,7 +665,7 @@ public Document delateNode(User user1) throws Exception {
 	
 	
 	
-	private void upDateAttributeValue(Document doc) {
+	public void upDateAttributeValue(Document doc) {
 		
 		NodeList users = doc.getElementsByTagName("Users");
 		Element elem = null; // Gli oggetti vanno inizializzati SEMPRE!
@@ -759,66 +759,5 @@ public Document delateNode(User user1) throws Exception {
 		}
 	}
 
-	@Override
-	public void Login(String Userld, String Username) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	
-
-	@Override
-	public void newReservation(User u) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delateReservatio(User u) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean insertBook(Book book, User user) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean delateBook(Book book, User user) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public ArrayList<Book> avableBook(Book book) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public ArrayList<Book> searchBook(Book book) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public ArrayList<Book> getBooks() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public ArrayList<Reservation> getReservations() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 
